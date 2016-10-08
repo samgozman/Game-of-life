@@ -1,7 +1,7 @@
 'use strict'; //ES5 строгий режим
 var console;
 
-var CELL_SIZE = 32; //размер клетки
+var CELL_SIZE = 16; //размер клетки
 var cells = [ [], [] ]; //многомерный костыль JS
 var canvas, game;
 
@@ -71,13 +71,13 @@ function init() {
         
         /* рандомная заливка для тестов */
         this.randomFill = function () {
-            var i, j, fill, fillRnd, gameClear;
+            var i, j, fill, fillRnd, gameClear, grid = new Grid();
             //очищаем предыдущий рисунок
             gameClear = new Update();
             gameClear.clear();
             
-            for (i = 0; i < CELL_SIZE; i += 1) {
-                for (j = 0; j < CELL_SIZE; j += 1) {
+            for (i = 0; i < grid.size.x; i += 1) {
+                for (j = 0; j < grid.size.y; j += 1) {
                     //рандомизация boolean
                     fill = [true, false][Math.round(Math.random())];
                     if (fill === true) {
@@ -92,11 +92,7 @@ function init() {
 
     var gameGrid = new Grid(), gameUpd = new Update(), clearBtn, randBtn;
     gameGrid.draw();
-   // gameGrid.fill();
-    gameUpd.fillCell(10, 10);
-    gameUpd.fillCell(11, 10);
-    gameUpd.fillCell(12, 10);
-    //gameUpd.clear();
+    //gameUpd.fillCell(10, 10);
     
     //Кнопка очистки
     clearBtn = document.getElementById('clear');

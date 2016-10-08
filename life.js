@@ -25,18 +25,18 @@ function init() {
         this.size.x = Math.floor(canvas.width / CELL_SIZE); //округляем к наименьшему (оптимизировать)
         this.size.y = Math.floor(canvas.height / CELL_SIZE);
         
-        //заполняем массив cells
+        /* заполняем массив cells */
         this.fill = function () {
             //cell верхяя левая и нижняя левая границы
             var i, j;
-            for (i = 0; i < this.width; i += CELL_SIZE) {
-                for (j = 0; j < this.height; j += CELL_SIZE) {
+            for (i = 0; i < CELL_SIZE; i += 1) {
+                for (j = 0; j < CELL_SIZE; j += 1) {
                     cells[i][j] = false; //false - нет жизни, true есть
                 }
             }
         };
         
-        //рисуем сетку
+        /* рисуем сетку */
         this.draw = function () {
             var i;
             
@@ -58,8 +58,9 @@ function init() {
         };
     }
         
-    //обновляем отрисовку
+    /* обновляем отрисовку */
     function Update() {
+        
         this.clear = function () {
             game.clearRect(0, 0, canvas.width, canvas.height);
         };
@@ -67,21 +68,45 @@ function init() {
         this.fillCell = function (x, y) {
             game.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         };
+        
+        /* рандомная заливка для тестов */
+        this.randomFill = function () {
+            var i, j, fill, fillRnd, gameClear;
+            //очищаем предыдущий рисунок
+            gameClear = new Update();
+            gameClear.clear();
+            
+            for (i = 0; i < CELL_SIZE; i += 1) {
+                for (j = 0; j < CELL_SIZE; j += 1) {
+                    //рандомизация boolean
+                    fill = [true, false][Math.round(Math.random())];
+                    if (fill === true) {
+                        //заполняем новый рисунок
+                        fillRnd = new Update();
+                        fillRnd.fillCell(i, j);
+                    }
+                }
+            }
+        };
     }
 
-    var gameGrid = new Grid();
-    var gameUpd = new Update();
+    var gameGrid = new Grid(), gameUpd = new Update(), clearBtn, randBtn;
     gameGrid.draw();
    // gameGrid.fill();
     gameUpd.fillCell(10, 10);
     gameUpd.fillCell(11, 10);
     gameUpd.fillCell(12, 10);
     //gameUpd.clear();
-    var clearBtn = document.getElementById("clear");
-    clearBtn.onclick = function () { gameUpd.clear(); };
-
-
-}
     
+    //Кнопка очистки
+    clearBtn = document.getElementById('clear');
+    clearBtn.onclick = function () { gameUpd.clear(); };
+    
+    //Кнопка рандомизации
+    randBtn = document.getElementById('rand');
+    randBtn.onclick = function () { gameUpd.randomFill(); };
+    
+    
+}
     
 window.onload = init();

@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Game of life</title>
+    <style>
+        #back {
+            z-index: 0;
+            position: absolute;
+        }
+        #game {
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
+    <canvas id="back" width="513" height="513" ></canvas>
     <canvas id="game" width="513" height="513" ></canvas>
+    <br>
+    <input type="button" id="clear" value="Очистка">
     <script src="life.js" type="application/javascript"></script>
 </body>
 </html>

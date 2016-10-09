@@ -2,7 +2,8 @@
 var console;
 
 var CELL_SIZE = 16; //размер клетки
-var cells = [ [], [] ]; //многомерный костыль JS
+//var cells = [ [], [] ]; //многомерный костыль JS
+var cells = [];
 var canvas, game;
 
 function init() {
@@ -14,7 +15,7 @@ function init() {
     //game
     game = document.getElementById('game').getContext('2d');
     
-    //grid
+    /* Сетка */
     function Grid() {
         this.size = { x : 0, y : 0 };
         this.width = canvas.width;
@@ -28,9 +29,11 @@ function init() {
         /* заполняем массив cells */
         this.fill = function () {
             //cell верхяя левая и нижняя левая границы
+            //cells = [ [this.size.x], [this.size.y] ];
             var i, j;
-            for (i = 0; i < CELL_SIZE; i += 1) {
-                for (j = 0; j < CELL_SIZE; j += 1) {
+            for (i = 0; i < this.size.x; i += 1) {
+                cells[i] = [];
+                for (j = 0; j < this.size.y; j += 1) {
                     cells[i][j] = false; //false - нет жизни, true есть
                 }
             }
@@ -80,6 +83,13 @@ function init() {
                 for (j = 0; j < grid.size.y; j += 1) {
                     //рандомизация boolean
                     fill = [true, false][Math.round(Math.random())];
+                    cells[i][j] = Boolean(fill);
+                }
+            }
+            
+            for (i = 0; i < grid.size.x; i += 1) {
+                for (j = 0; j < grid.size.y; j += 1) {
+                    fill = cells[i][j];
                     if (fill === true) {
                         //заполняем новый рисунок
                         fillRnd = new Update();
@@ -87,11 +97,13 @@ function init() {
                     }
                 }
             }
+            
         };
     }
 
     var gameGrid = new Grid(), gameUpd = new Update(), clearBtn, randBtn;
     gameGrid.draw();
+    gameGrid.fill();
     //gameUpd.fillCell(10, 10);
     
     //Кнопка очистки

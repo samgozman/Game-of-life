@@ -69,7 +69,7 @@ function init() {
         };
 
         this.fillCell = function (x, y) {
-            game.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            game.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE + 1, CELL_SIZE + 1);
         };
         
         /* рандомная заливка для тестов */

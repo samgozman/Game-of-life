@@ -4,6 +4,7 @@ var console;
 var CELL_SIZE = 8; //размер клетки
 //var cells = [ [], [] ]; //многомерный костыль JS
 var cells = [];
+var timeout = 100; //задержка для автоплея
 var canvas, game;
 
 function init() {
@@ -84,6 +85,7 @@ function init() {
             
             for (i = 0; i < grid.size.x; i += 1) {
                 for (j = 0; j < grid.size.y; j += 1) {
+                    //Тут можно устроить инверсию цвета
                     if (cells[i][j] === true) {
                         upd.fillCell(i, j);
                     }
@@ -92,9 +94,6 @@ function init() {
             
             //Перессчитываем ячейки
             upd.cells();
-            
-            //Сами себя вызываем
-            setTimeout(function () { upd.fill(); }, 5000);
         };
         
         /* рандомная заливка для тестов */
@@ -123,10 +122,16 @@ function init() {
             }
         };
         
+        /* АВТОШАГ */
+        this.autoplay = function () {
+            var upd = new Update();
+            upd.fill();
+            setTimeout(function () { upd.autoplay(); }, timeout);
+        };
+        
         /* Проверяем количество живых соседей */
         this.getLivingNeighbors = function (x, y) {
             var grid = new Grid(), count = 0, sx = grid.size.x, sy = grid.size.y;
-            //console.log(x, y);
             //ПРАВИЛА ИГРЫ
             
             //каждый первый if проверяет, что мы не зашли за границы сетки!
@@ -205,7 +210,7 @@ function init() {
                     count = gameUpd.getLivingNeighbors(i, j);
                     //применяем правила
                     if (isAlive && count < 2) {
-                        result = false;
+                        result = true;
                     }
                     if (isAlive && (count === 2 || count === 3)) {
                         result = true;
@@ -244,8 +249,23 @@ function init() {
                 cells[off_x + 3][off_y + 1] = true;
                 cells[off_x + 3][off_y + 2] = true;
                 cells[off_x + 3][off_y + 3] = true;
-               
+                break;
                     
+            case 'exploder':
+                cells[off_x + 1][off_y + 1] = true;
+                cells[off_x + 1][off_y + 2] = true;
+                cells[off_x + 1][off_y + 3] = true;
+                cells[off_x + 1][off_y + 4] = true;
+                cells[off_x + 1][off_y + 5] = true;
+                    
+                cells[off_x + 3][off_y + 1] = true;
+                cells[off_x + 3][off_y + 5] = true;
+                    
+                cells[off_x + 5][off_y + 1] = true;
+                cells[off_x + 5][off_y + 2] = true;
+                cells[off_x + 5][off_y + 3] = true;
+                cells[off_x + 5][off_y + 4] = true;
+                cells[off_x + 5][off_y + 5] = true;
                 break;
             }
             
@@ -276,11 +296,27 @@ function init() {
     stepBtn = document.getElementById('step');
     stepBtn.onclick = function () { gameUpd.fill(); };
     
+    //Кнопка autoplay
+    stepBtn = document.getElementById('autoplay');
+    stepBtn.onclick = function () {
+        //Сами себя вызываем
+        var upd = new Update();
+        upd.autoplay();
+    };
+    
     //Кнопка юнита: глайдер
     gliderBtn = document.getElementById('glider');
     gliderBtn.onclick = function () {
         gameGrid.fill();
         gameUpd.newUnit('glider');
+        gameUpd.fill();
+    };
+    
+    //Кнопка юнита: глайдер
+    gliderBtn = document.getElementById('exploder');
+    gliderBtn.onclick = function () {
+        gameGrid.fill();
+        gameUpd.newUnit('exploder');
         gameUpd.fill();
     };
     

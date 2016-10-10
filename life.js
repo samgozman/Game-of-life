@@ -210,7 +210,7 @@ function init() {
                     count = gameUpd.getLivingNeighbors(i, j);
                     //применяем правила
                     if (isAlive && count < 2) {
-                        result = true;
+                        result = false;
                     }
                     if (isAlive && (count === 2 || count === 3)) {
                         result = true;

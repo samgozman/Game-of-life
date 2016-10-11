@@ -4,7 +4,7 @@ var console;
 var CELL_SIZE = 8; //размер клетки
 //var cells = [ [], [] ]; //многомерный костыль JS
 var cells = [];
-var timeout = 100; //задержка для автоплея
+var timeout = 30; //задержка для автоплея
 var canvas, game;
 
 function init() {
@@ -30,11 +30,13 @@ function init() {
         /* заполняем массив cells */
         this.fill = function () {
             //cell верхяя левая и нижняя левая границы
+            //возможно тут ошибка, тк массив не обнуляется
             //cells = [ [this.size.x], [this.size.y] ];
+            //cells[this.size.x] = [this.size.y];
             var i, j;
-            for (i = 0; i <= this.size.x; i += 1) {
+            for (i = 0; i < this.size.x; i += 1) {
                 cells[i] = [];
-                for (j = 0; j <= this.size.y; j += 1) {
+                for (j = 0; j < this.size.y; j += 1) {
                     cells[i][j] = false; //false - нет жизни, true есть
                 }
             }

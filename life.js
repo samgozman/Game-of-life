@@ -1,9 +1,14 @@
+// Крч, нужно сохранять поколения в другой массив и выводить одно, а по другому рассчитывать
+//ВООТ! Рассчитываем правила по своему массиву, а записываем результаты поколения в новый массив.
+//Затем в новом цикле (до него) записываем второй массив в первый и на основе него решаем какие клетки будут закрашены (в третий массив, либо визуализацией второго)
+// Шок, НН мне про жизнь рассказала
+
 'use strict'; //ES5 строгий режим
 var console;
 
 var CELL_SIZE = 8; //размер клетки
 //var cells = [ [], [] ]; //многомерный костыль JS
-var cells = [];
+var cells = [], buffCells = [];
 var timeout = 30; //задержка для автоплея
 var canvas, game;
 
@@ -200,6 +205,9 @@ function init() {
         /* Проверяем клетки по правилам игры */
         this.cells = function () {
             var i, j, isAlive, count, result = false, gameUpd = new Update(), grid = new Grid();
+            
+            //сначала нужно скопировать массив
+            
             for (i = 0; i < grid.size.x; i += 1) {
                 for (j = 0; j < grid.size.y; j += 1) {
                     
@@ -314,7 +322,7 @@ function init() {
         gameUpd.fill();
     };
     
-    //Кнопка юнита: глайдер
+    //Кнопка юнита: эксподер
     gliderBtn = document.getElementById('exploder');
     gliderBtn.onclick = function () {
         gameGrid.fill();

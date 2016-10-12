@@ -56,7 +56,6 @@ function init() {
             canvas.translate(0.5, 0.5);
             canvas.beginPath();
             for (i = 0; i <= this.size.x; i += 1) {
-                
                 canvas.moveTo(0, i * CELL_SIZE);
                 canvas.lineWidth = 1;
                 canvas.lineTo(this.width, i * CELL_SIZE);
@@ -65,7 +64,6 @@ function init() {
             
             for (i = 0; i <= this.size.x; i += 1) {
                 canvas.lineWidth = 1;
-                
                 canvas.moveTo(i * CELL_SIZE, 0);
                 canvas.lineTo(i * CELL_SIZE, canvas.height);
                 canvas.strokeStyle = "#000"; // цвет линии
@@ -87,6 +85,15 @@ function init() {
         /* Заполнить конкретную ячейку */
         this.fillCell = function (x, y) {
             game.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE + 1, CELL_SIZE + 1);
+            
+            // Для рисования круга
+//            game.beginPath();
+//            game.arc(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE / 2, 0, 2 * Math.PI, false);
+//            game.fillStyle = 'red';
+//            game.fill();
+//            game.lineWidth = 1;
+//            game.strokeStyle = 'red';
+//            game.stroke();
         };
         
         /* Заполнить всё поле */
@@ -249,7 +256,6 @@ function init() {
                     cells[i][j] = buffCells[i][j];
                 }
             }
-            
             
         };
         

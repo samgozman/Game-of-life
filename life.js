@@ -29,8 +29,8 @@ function init() {
 
         //grid functions
         
-        this.size.x = Math.floor(canvas.width / CELL_SIZE); //округляем к наименьшему (оптимизировать)
-        this.size.y = Math.floor(canvas.height / CELL_SIZE);
+        this.size.x = parseInt(canvas.width / CELL_SIZE, 10); //округляем к наименьшему (оптимизировать)
+        this.size.y = parseInt(canvas.height / CELL_SIZE, 10);
         
         /* заполняем массив cells */
         this.fill = function () {
@@ -261,13 +261,12 @@ function init() {
         
         /* Создаём юнитов */
         this.newUnit = function (unit) {
-            var i, j, grid = new Grid(), off_x = Math.floor(grid.size.x / 2), off_y = Math.floor(grid.size.y / 2);
+            var i, j, grid = new Grid(), off_x = parseInt(grid.size.x / 2, 10), off_y = parseInt(grid.size.y / 2, 10);
             
             //очищаем массив по тупому
             for (i = 0; i < grid.size.x; i += 1) {
                 for (j = 0; j < grid.size.y; j += 1) {
                     cells[i][j] = false;
-                    //console.log(cells[i][j]);
                 }
             }
             
@@ -296,6 +295,132 @@ function init() {
                 cells[off_x + 5][off_y + 3] = true;
                 cells[off_x + 5][off_y + 4] = true;
                 cells[off_x + 5][off_y + 5] = true;
+                break;
+                    
+            case 'gosper':
+                cells[off_x + 1][off_y + 5] = true;
+                cells[off_x + 1][off_y + 6] = true;
+                cells[off_x + 2][off_y + 5] = true;
+                cells[off_x + 2][off_y + 6] = true;
+                
+                cells[off_x + 12][off_y + 5] = true;
+                cells[off_x + 12][off_y + 6] = true;
+                cells[off_x + 12][off_y + 7] = true;
+                    
+                cells[off_x + 13][off_y + 4] = true;
+                cells[off_x + 13][off_y + 8] = true;
+                    
+                cells[off_x + 14][off_y + 3] = true;
+                cells[off_x + 14][off_y + 9] = true;
+                    
+                cells[off_x + 15][off_y + 4] = true;
+                cells[off_x + 15][off_y + 8] = true;
+                    
+                cells[off_x + 16][off_y + 5] = true;
+                cells[off_x + 16][off_y + 6] = true;
+                cells[off_x + 16][off_y + 7] = true;
+                    
+                cells[off_x + 17][off_y + 5] = true;
+                cells[off_x + 17][off_y + 6] = true;
+                cells[off_x + 17][off_y + 7] = true;
+                    
+                cells[off_x + 22][off_y + 3] = true;
+                cells[off_x + 22][off_y + 4] = true;
+                cells[off_x + 22][off_y + 5] = true;
+                    
+                cells[off_x + 23][off_y + 2] = true;
+                cells[off_x + 23][off_y + 3] = true;
+                cells[off_x + 23][off_y + 5] = true;
+                cells[off_x + 23][off_y + 6] = true;
+                    
+                cells[off_x + 24][off_y + 2] = true;
+                cells[off_x + 24][off_y + 3] = true;
+                cells[off_x + 24][off_y + 5] = true;
+                cells[off_x + 24][off_y + 6] = true;
+                    
+                cells[off_x + 25][off_y + 2] = true;
+                cells[off_x + 25][off_y + 3] = true;
+                cells[off_x + 25][off_y + 4] = true;
+                cells[off_x + 25][off_y + 5] = true;
+                cells[off_x + 25][off_y + 6] = true;
+                    
+                cells[off_x + 26][off_y + 1] = true;
+                cells[off_x + 26][off_y + 2] = true;
+                cells[off_x + 26][off_y + 6] = true;
+                cells[off_x + 26][off_y + 7] = true;
+         
+                cells[off_x + 35][off_y + 3] = true;
+                cells[off_x + 35][off_y + 4] = true;
+                    
+                cells[off_x + 36][off_y + 3] = true;
+                cells[off_x + 36][off_y + 4] = true;
+                break;
+                    
+            case 'lidka':
+                cells[off_x + 1][off_y + 2] = true;
+                    
+                cells[off_x + 2][off_y + 1] = true;
+                cells[off_x + 2][off_y + 3] = true;
+                
+                cells[off_x + 3][off_y + 2] = true;
+                
+                cells[off_x + 5][off_y + 15] = true;
+                    
+                cells[off_x + 6][off_y + 13] = true;
+                cells[off_x + 6][off_y + 15] = true;
+                
+                cells[off_x + 7][off_y + 12] = true;
+                cells[off_x + 7][off_y + 13] = true;
+                cells[off_x + 7][off_y + 15] = true;
+                    
+                cells[off_x + 9][off_y + 11] = true;
+                cells[off_x + 9][off_y + 12] = true;
+                cells[off_x + 9][off_y + 13] = true;
+                break;
+            case 'kek':
+                cells[off_x + 1][off_y + 1] = true;
+                cells[off_x + 1][off_y + 2] = true;
+                cells[off_x + 1][off_y + 3] = true;
+                cells[off_x + 1][off_y + 4] = true;
+                cells[off_x + 1][off_y + 5] = true;
+                    
+                cells[off_x + 2][off_y + 3] = true;
+                
+                cells[off_x + 3][off_y + 2] = true;
+                cells[off_x + 3][off_y + 4] = true;
+                    
+                cells[off_x + 4][off_y + 1] = true;
+                cells[off_x + 4][off_y + 5] = true;
+                    
+                    
+                cells[off_x + 6][off_y + 1] = true;
+                cells[off_x + 6][off_y + 2] = true;
+                cells[off_x + 6][off_y + 3] = true;
+                cells[off_x + 6][off_y + 4] = true;
+                cells[off_x + 6][off_y + 5] = true;
+                
+                cells[off_x + 7][off_y + 1] = true;
+                cells[off_x + 7][off_y + 3] = true;
+                cells[off_x + 7][off_y + 5] = true;
+                    
+                cells[off_x + 8][off_y + 1] = true;
+                cells[off_x + 8][off_y + 3] = true;
+                cells[off_x + 8][off_y + 5] = true;
+                    
+                
+                cells[off_x + 10][off_y + 1] = true;
+                cells[off_x + 10][off_y + 2] = true;
+                cells[off_x + 10][off_y + 3] = true;
+                cells[off_x + 10][off_y + 4] = true;
+                cells[off_x + 10][off_y + 5] = true;
+                    
+                cells[off_x + 11][off_y + 3] = true;
+                
+                cells[off_x + 12][off_y + 2] = true;
+                cells[off_x + 12][off_y + 4] = true;
+                    
+                cells[off_x + 13][off_y + 1] = true;
+                cells[off_x + 13][off_y + 5] = true;
                 break;
             }
             
@@ -347,6 +472,29 @@ function init() {
     gliderBtn.onclick = function () {
         gameGrid.fill();
         gameUpd.newUnit('exploder');
+        gameUpd.fill();
+    };
+    
+    //Кнопка юнита: gosper
+    gliderBtn = document.getElementById('gosper');
+    gliderBtn.onclick = function () {
+        gameGrid.fill();
+        gameUpd.newUnit('gosper');
+        gameUpd.fill();
+    };
+    
+    //Кнопка юнита: lidka
+    gliderBtn = document.getElementById('lidka');
+    gliderBtn.onclick = function () {
+        gameGrid.fill();
+        gameUpd.newUnit('lidka');
+        gameUpd.fill();
+    };
+    //kek
+    gliderBtn = document.getElementById('kek');
+    gliderBtn.onclick = function () {
+        gameGrid.fill();
+        gameUpd.newUnit('kek');
         gameUpd.fill();
     };
     

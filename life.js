@@ -41,8 +41,10 @@ function init() {
             var i, j;
             for (i = 0; i < this.size.x; i += 1) {
                 cells[i] = [];
+                buffCells[i] = [];
                 for (j = 0; j < this.size.y; j += 1) {
                     cells[i][j] = false; //false - нет жизни, true есть
+                    buffCells[i][j] = false;
                 }
             }
         };
@@ -233,9 +235,17 @@ function init() {
                     }
                     
                     //записываем результат
-                    cells[i][j] = result;
+                    buffCells[i][j] = result;
                 }
             }
+            
+            //копируем массив. Сделаю через цикл, чтобы наверняка))0
+            for (i = 0; i < grid.size.x; i += 1) {
+                for (j = 0; j < grid.size.y; j += 1) {
+                    cells[i][j] = buffCells[i][j];
+                }
+            }
+            
             
         };
         

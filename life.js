@@ -53,20 +53,24 @@ function init() {
         this.draw = function () {
             var i;
             
-            console.log(this.size.x);
-            
             canvas.translate(0.5, 0.5);
             canvas.beginPath();
-            for (i = 0; i <= this.size.y; i += 1) {
+            for (i = 0; i <= this.size.x; i += 1) {
                 
                 canvas.moveTo(0, i * CELL_SIZE);
                 canvas.lineWidth = 1;
                 canvas.lineTo(this.width, i * CELL_SIZE);
-               
+                canvas.strokeStyle = "#000"; // цвет линии
+            }
+            
+            for (i = 0; i <= this.size.x; i += 1) {
+                canvas.lineWidth = 1;
+                
                 canvas.moveTo(i * CELL_SIZE, 0);
                 canvas.lineTo(i * CELL_SIZE, canvas.height);
                 canvas.strokeStyle = "#000"; // цвет линии
             }
+            
             canvas.stroke();
         };
     }
@@ -251,7 +255,7 @@ function init() {
         
         /* Создаём юнитов */
         this.newUnit = function (unit) {
-            var off_x = 5, off_y = 5, i, j, grid = new Grid();
+            var i, j, grid = new Grid(), off_x = Math.floor(grid.size.x / 2), off_y = Math.floor(grid.size.y / 2);
             
             //очищаем массив по тупому
             for (i = 0; i < grid.size.x; i += 1) {

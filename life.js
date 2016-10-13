@@ -1,8 +1,3 @@
-// Крч, нужно сохранять поколения в другой массив и выводить одно, а по другому рассчитывать
-//ВООТ! Рассчитываем правила по своему массиву, а записываем результаты поколения в новый массив.
-//Затем в новом цикле (до него) записываем второй массив в первый и на основе него решаем какие клетки будут закрашены (в третий массив, либо визуализацией второго)
-// Шок, НН мне про жизнь рассказала
-
 'use strict'; //ES5 строгий режим
 var console;
 
@@ -11,6 +6,8 @@ var CELL_SIZE = 8; //размер клетки
 var cells = [], buffCells = [];
 var timeout = 30; //задержка для автоплея
 var canvas, game;
+
+var length = 1; //для писоса
 
 function init() {
     //back-grid
@@ -262,7 +259,6 @@ function init() {
         /* Создаём юнитов */
         this.newUnit = function (unit) {
             var i, j, grid = new Grid(), off_x = parseInt(grid.size.x / 2, 10), off_y = parseInt(grid.size.y / 2, 10);
-            
             //очищаем массив по тупому
             for (i = 0; i < grid.size.x; i += 1) {
                 for (j = 0; j < grid.size.y; j += 1) {
@@ -271,6 +267,7 @@ function init() {
             }
             
             //заполняем
+            //хотя хорошо бы эту дичь в JSON запихнуть
             switch (unit) {
             case 'glider':
                 cells[off_x + 1][off_y + 2] = true;
@@ -422,6 +419,89 @@ function init() {
                 cells[off_x + 13][off_y + 1] = true;
                 cells[off_x + 13][off_y + 5] = true;
                 break;
+                    
+            case 'dick':
+                
+                cells[off_x + 1][off_y + 4] = true;
+                cells[off_x + 1][off_y + 5] = true;
+                cells[off_x + 1][off_y + 6] = true;
+                    
+                cells[off_x + 2][off_y + 3] = true;
+                cells[off_x + 2][off_y + 5] = true;
+                cells[off_x + 2][off_y + 7] = true;
+                    
+                cells[off_x + 3][off_y + 2] = true;
+                cells[off_x + 3][off_y + 5] = true;
+                cells[off_x + 3][off_y + 8] = true;
+                    
+                cells[off_x + 4][off_y + 2] = true;
+                cells[off_x + 4][off_y + 8] = true;
+                
+                length += 1;
+                for (i = 4; i <= (length + 4); i += 1) {
+                    cells[off_x + i][off_y + 3] = true;
+                    cells[off_x + i][off_y + 7] = true;
+                }
+                i -= 1;
+                cells[off_x + (i + 1)][off_y + 2] = true;
+                cells[off_x + (i + 1)][off_y + 3] = true;
+                cells[off_x + (i + 1)][off_y + 7] = true;
+                cells[off_x + (i + 1)][off_y + 8] = true;
+                    
+                cells[off_x + (i + 2)][off_y + 1] = true;
+                cells[off_x + (i + 2)][off_y + 9] = true;
+                
+                cells[off_x + (i + 3)][off_y + 1] = true;
+                cells[off_x + (i + 3)][off_y + 9] = true;
+                    
+                cells[off_x + (i + 4)][off_y + 1] = true;
+                cells[off_x + (i + 4)][off_y + 9] = true;
+                    
+                cells[off_x + (i + 5)][off_y + 1] = true;
+                cells[off_x + (i + 5)][off_y + 5] = true;
+                cells[off_x + (i + 5)][off_y + 9] = true;
+                    
+                cells[off_x + (i + 6)][off_y + 2] = true;
+                cells[off_x + (i + 6)][off_y + 3] = true;
+                cells[off_x + (i + 6)][off_y + 4] = true;
+                cells[off_x + (i + 6)][off_y + 6] = true;
+                cells[off_x + (i + 6)][off_y + 7] = true;
+                cells[off_x + (i + 6)][off_y + 8] = true;
+                break;
+            case 'lol':
+                for (i = 1; i <= 7; i += 1) {
+                    cells[off_x + 1][off_y + i] = true;
+                    cells[off_x + 15][off_y + i] = true;
+                }
+                for (i = 1; i <= 6; i += 1) {
+                    cells[off_x + i][off_y + 7] = true;
+                    cells[off_x + 15 + i][off_y + 7] = true;
+                    
+                }
+                cells[off_x + 8][off_y + 3] = true;
+                cells[off_x + 8][off_y + 4] = true;
+                cells[off_x + 8][off_y + 5] = true;
+                
+                cells[off_x + 9][off_y + 2] = true;
+                cells[off_x + 9][off_y + 6] = true;
+                    
+                cells[off_x + 10][off_y + 1] = true;
+                cells[off_x + 10][off_y + 7] = true;
+                
+                cells[off_x + 11][off_y + 1] = true;
+                cells[off_x + 11][off_y + 7] = true;
+                
+                cells[off_x + 11][off_y + 1] = true;
+                cells[off_x + 11][off_y + 7] = true;
+                    
+                cells[off_x + 12][off_y + 2] = true;
+                cells[off_x + 12][off_y + 6] = true;
+                    
+                cells[off_x + 13][off_y + 3] = true;
+                cells[off_x + 13][off_y + 4] = true;
+                cells[off_x + 13][off_y + 5] = true;
+                break;
+                    
             }
             
             for (i = 0; i < grid.size.x; i += 1) {
@@ -497,7 +577,20 @@ function init() {
         gameUpd.newUnit('kek');
         gameUpd.fill();
     };
-    
+    //dick
+    gliderBtn = document.getElementById('dick');
+    gliderBtn.onclick = function () {
+        gameGrid.fill();
+        gameUpd.newUnit('dick');
+        gameUpd.fill();
+    };
+    //lol
+    gliderBtn = document.getElementById('lol');
+    gliderBtn.onclick = function () {
+        gameGrid.fill();
+        gameUpd.newUnit('lol');
+        gameUpd.fill();
+    };
 }
     
 window.onload = init();

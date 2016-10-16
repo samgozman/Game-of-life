@@ -1,7 +1,7 @@
 'use strict'; //ES5 строгий режим
 var console;
 
-var CELL_SIZE = 8; //размер клетки
+var CELL_SIZE = 4; //размер клетки
 //var cells = [ [], [] ]; //многомерный костыль JS
 var cells = [], buffCells = [];
 var timeout = 30; //задержка для автоплея
@@ -56,14 +56,14 @@ function init() {
                 canvas.moveTo(0, i * CELL_SIZE);
                 canvas.lineWidth = 1;
                 canvas.lineTo(this.width, i * CELL_SIZE);
-                canvas.strokeStyle = "#000"; // цвет линии
+                canvas.strokeStyle = "#ddd"; // цвет линии
             }
             
             for (i = 0; i <= this.size.x; i += 1) {
                 canvas.lineWidth = 1;
                 canvas.moveTo(i * CELL_SIZE, 0);
                 canvas.lineTo(i * CELL_SIZE, canvas.height);
-                canvas.strokeStyle = "#000"; // цвет линии
+                canvas.strokeStyle = "#ddd"; // цвет линии
             }
             
             canvas.stroke();
@@ -84,6 +84,7 @@ function init() {
             game.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE + 1, CELL_SIZE + 1);
             
             // Для рисования круга
+            
 //            game.beginPath();
 //            game.arc(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE / 2, 0, 2 * Math.PI, false);
 //            game.fillStyle = 'red';

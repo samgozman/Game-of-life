@@ -31,10 +31,6 @@ function init() {
         
         /* заполняем массив cells */
         this.fill = function () {
-            //cell верхяя левая и нижняя левая границы
-            //возможно тут ошибка, тк массив не обнуляется
-            //cells = [ [this.size.x], [this.size.y] ];
-            //cells[this.size.x] = [this.size.y];
             var i, j;
             for (i = 0; i < this.size.x; i += 1) {
                 cells[i] = [];
